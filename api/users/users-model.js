@@ -5,6 +5,7 @@ module.exports = {
   find,
   findBy,
   findById,
+  updateLogoutTime,
 }
 
 function find() {
