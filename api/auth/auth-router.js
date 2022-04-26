@@ -49,4 +49,10 @@ function generateToken(user) {
   return jwt.sign(payload, JWT_SECRET, options);
 }
 
+
+router.get('show-headers', (req, res) => {
+  console.log(req.headers);
+  res.end();
+})
+
 module.exports = router
