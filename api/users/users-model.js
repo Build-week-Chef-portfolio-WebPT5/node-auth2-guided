@@ -32,3 +32,10 @@ function findById(id) {
     .where("u.id", id)
     .first()
 }
+
+function updateLogoutTime(id) {
+  const timestamp = Math.floor(+new Date() / 1000);
+  return db("users")
+    .update({ logged_out_time: timestamp })
+    .where('id', id);
+}
