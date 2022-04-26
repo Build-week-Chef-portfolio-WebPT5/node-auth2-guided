@@ -8,6 +8,7 @@ exports.up = function (knex) {
       tbl.increments()
       tbl.string("username", 128).notNullable().unique()
       tbl.string("password", 256).notNullable()
+      tbl.integer("logged_out_time");
       tbl.integer("role")
         .unsigned()
         .references("roles.id")
