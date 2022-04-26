@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 
 const router = require('express').Router()
 const User = require('../users/users-model.js')
+const { restricted } = require('./auth-middleware');
 
 const { BCRYPT_ROUNDS, JWT_SECRET } = require('../../config')
 
@@ -38,8 +39,8 @@ router.post('/login', (req, res, next) => {
     .catch(next)
 })
 
-router.get('/logout', async (req, res, next) => {
-  await User.update_logout_time();
+router.get('/logout', restricted, async (req, res, next) => {
+  await User.updateLogoutTime(req.decodedJwt.subject);
   res.json({ message: 'You are now logged out.' });
 });
 
