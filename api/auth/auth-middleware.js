@@ -14,10 +14,13 @@ const restricted = (req, res, next) => {
   jwt.verify(token, JWT_SECRET, (err, decodedToken) => {
     if(err) {
       next({ status: 401, message: MESSAGE_401 });
+      return;
     }
-  })
 
-  next()
+    req.decodedJwt = decodedToken;
+    console.log('decoded token:', req.decodedJwt);
+    next();
+  })
 }
 
 // AUTHORIZATION
