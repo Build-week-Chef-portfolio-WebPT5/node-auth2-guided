@@ -20,8 +20,14 @@ const restricted = (req, res, next) => {
 }
 
 // AUTHORIZATION
-const checkRole = (req, res, next) => {
-  next()
+function checkRole(...roles) {
+  return (req, res, next) => {
+    if(roles.includes(req.decodedJwt.role)) {
+      next();
+    } else {
+      next({ status: 403, message: 'You are not authorized to access this API' });
+    }
+  }
 }
 
 module.exports = {
