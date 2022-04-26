@@ -43,6 +43,7 @@ function generateToken(user) {
     subject: user.id,
     username: user.username,
     role: user.role,
+    asdf: 'qwer',
   };
   const options = { expiresIn: '1d' };
   return jwt.sign(payload, JWT_SECRET, options);
