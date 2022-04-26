@@ -8,6 +8,7 @@ const restricted = (req, res, next) => {
 
   jwt.verify(token, JWT_SECRET, (err, decodedToken) => {
     if(err) {
+      console.log('Error:', err)
       next({ status: 401, message: MESSAGE_401 });
       return;
     }
