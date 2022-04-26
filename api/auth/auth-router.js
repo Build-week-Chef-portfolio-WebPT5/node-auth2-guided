@@ -39,7 +39,11 @@ router.post('/login', (req, res, next) => {
 })
 
 function generateToken(user) {
-  
+  const payload = {
+    subject: user.id,
+    username: user.username,
+    role: user.role,
+  }
 }
 
 module.exports = router
