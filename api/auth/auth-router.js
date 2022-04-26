@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const router = require('express').Router()
 const User = require('../users/users-model.js')
 
-const { BCRYPT_ROUNDS } = require('../../config')
+const { BCRYPT_ROUNDS, JWT_SECRET } = require('../../config')
 
 router.post('/register', (req, res, next) => {
   let user = req.body
@@ -43,7 +43,9 @@ function generateToken(user) {
     subject: user.id,
     username: user.username,
     role: user.role,
-  }
+  };
+  const options = { expiresIn: '1d' };
+  return jwt.sign(payload, JWT_SECRET, options);
 }
 
 module.exports = router
