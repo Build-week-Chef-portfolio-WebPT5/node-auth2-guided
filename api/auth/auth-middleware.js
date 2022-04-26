@@ -1,14 +1,21 @@
 const jwt = require('jsonwebtoken');
 const { JWT_SECRET } = require('../../config');
+const User = require('../users/users-model');
 
 // AUTHENTICATION
 const restricted = (req, res, next) => {
   const token = req.headers.authorization;
   const MESSAGE_401 = 'You must be logged in to access this API';
 
-  jwt.verify(token, JWT_SECRET, (err, decodedToken) => {
+  jwt.verify(token, JWT_SECRET, async (err, decodedToken) => {
     if(err) {
       console.log('Error:', err)
+      next({ status: 401, message: MESSAGE_401 });
+      return;
+    }
+
+    const user = await User.findById(decodedToken.subject);
+    if(decodedToken.iat < user.logged_out_time) {
       next({ status: 401, message: MESSAGE_401 });
       return;
     }
