@@ -50,7 +50,7 @@ function generateToken(user) {
 }
 
 
-router.get('show-headers', (req, res) => {
+router.get('/show-headers', (req, res) => {
   console.log(req.headers);
   res.end();
 })
