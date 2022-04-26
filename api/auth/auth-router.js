@@ -38,6 +38,11 @@ router.post('/login', (req, res, next) => {
     .catch(next)
 })
 
+router.get('/logout', async (req, res, next) => {
+  await User.update_logout_time();
+  res.json({ message: 'You are now logged out.' });
+});
+
 function generateToken(user) {
   const payload = {
     subject: user.id,
